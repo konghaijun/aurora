@@ -6,7 +6,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"io"
 	"log"
@@ -106,9 +105,12 @@ func (s *UserService) Select(c *gin.Context) (models.SelectResponse, error) {
 	return resp, nil
 }
 
-func (s *UserService) Answer(c *gin.Context) (error) {
+func (s *UserService) Answer(c *gin.Context) (models.AnswerResponse, error) {
 	client := &http.Client{}
-	request := models.Answer{Prompt: "改成用java写helloword",
+
+	question := c.PostForm("question") // 获取 name 参数
+
+	request := models.Answer{Prompt: question,
 		UserID:         "#/chat/1697428187899",
 		Network:        true,
 		WithoutContext: false,
@@ -151,6 +153,15 @@ func (s *UserService) Answer(c *gin.Context) (error) {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%s\n", bodyText)
-	return nil
+	str := string(bodyText)
+
+	baseResp := models.AnswerResponse{
+		Resp: models.BaseResponse{StatusCode: 200,
+			StatusMsg: "success"},
+		Answers: str,
+	}
+
+	//fmt.Printf("%s\n", bodyText)
+
+	return baseResp, nil
 }
