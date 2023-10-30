@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"io"
 	"log"
@@ -161,7 +162,7 @@ func (s *UserService) Answer(c *gin.Context) (models.AnswerResponse, error) {
 		Answers: str,
 	}
 
-	//fmt.Printf("%s\n", bodyText)
+	fmt.Printf("%s\n", bodyText)
 
 	return baseResp, nil
 }

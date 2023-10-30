@@ -11,6 +11,9 @@ func SetupRouter() *gin.Engine {
 	userCtrl := &controller.UserController{}
 	// 添加跨域中间件
 	router.Use(CORSMiddleware())
+	// 加载静态文件
+	router.Static("/static", "./static")
+
 	router.POST("/aurora/user/apply", userCtrl.ApplyHandler)
 	router.GET("/aurora/user/select", userCtrl.SelectHandler)
 	router.POST("/aurora/user/chat", userCtrl.AnswerHandler)

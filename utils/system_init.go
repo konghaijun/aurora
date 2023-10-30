@@ -39,10 +39,10 @@ func InitMysql() {
 			Colorful:      true,
 		},
 	)
-	//user:password@(localhost:port)/dbname?charset=utf8mb4&parseTime=True&loc=Local
-	url := "aurora:aurora@(1.12.244.193:3306)/aurora?charset=utf8mb4&parseTime=True&loc=Local"
 
-	fmt.Println(url)
+	url :=
+
+		fmt.Println(url)
 	DB, _ = gorm.Open(mysql.Open(url), &gorm.Config{Logger: newLogger})
 	// 其他操作...
 }
